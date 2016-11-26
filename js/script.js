@@ -1,17 +1,17 @@
-var tempK_ = "999";
-var showTempInC_ = 0;
+var tempK_ = "999";   // temp in Kelvin, init to atypical value just in case
+var showTempInCflag_ = 0;  // flag to toggle showing temp in F or C
 
 function toggleTemp() {
 	var t1 = 0;
 	var suffix = "Z";
-	if(showTempInC_ == 1) {
+	if(showTempInCflag_ == 1) {
 		t1 = KtoC(tempK_); 
-		showTempInC_ = 0;
+		showTempInCflag_ = 0;
 		suffix = "C";
 	}
 	else {
 		t1 = KtoF(tempK_); 
-		showTempInC_ = 1;
+		showTempInCflag_ = 1;
 		suffix = "F";
 	}
 	document.getElementById("temperature").innerHTML = t1.toFixed(2) + suffix;
@@ -59,9 +59,7 @@ $(document).ready(function() {
 		// this passes position into weather api, 
 		// see http://openweathermap.org/current for response parms
 		// icon url http://openweathermap.org/weather-conditions
-		// ------------------------------------------
-		
-		/*  this works, don't delete, working on formatting  */
+		// ------------------------------------------		
 		var weatherAPI_URL = "http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&APPID=80461a33d96cef29e5d05dc616257d11";  
 
 		$.getJSON(weatherAPI_URL, function(result) {       
@@ -79,14 +77,8 @@ $(document).ready(function() {
 			$("#description").html(description);			
 			
 			// first time loading, want temp in C, set flag and manually toggle	
-			showTempInC_ = 1;  
-			var tx = toggleTemp();
-				
-		}); 
-				
-		// first time loading, want temp in C, set flag and manually toggle	
-		//showTempInC_ = 1;  
-		//var tx = toggleTemp();
-	});
-    
+			showTempInCflag_ = 1;  
+			var tx = toggleTemp();			
+		}); 				
+	});    
 });
